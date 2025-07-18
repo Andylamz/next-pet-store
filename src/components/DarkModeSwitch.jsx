@@ -1,5 +1,5 @@
 "use client";
-import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -14,10 +14,13 @@ function DarkModeSwitch() {
   return (
     <div>
       {mounted && currentTheme === "dark" && (
-        <div onClick={() => setTheme("light")} className="cursor-pointer">
+        <div
+          onClick={() => setTheme("light")}
+          className="flex cursor-pointer w-10 h-10 items-center justify-center"
+        >
           <FontAwesomeIcon
             icon={faSun}
-            className=" w-5 hover:text-[#fc5d0f] transition-colors duration-300"
+            className=" w-auto h-auto hover:text-[#fc5d0f] transition-colors duration-300"
             size="lg"
             tabIndex={0}
             aria-label="light mode button"
@@ -25,10 +28,13 @@ function DarkModeSwitch() {
         </div>
       )}
       {mounted && currentTheme === "light" && (
-        <div onClick={() => setTheme("dark")} className="cursor-pointer">
+        <div
+          onClick={() => setTheme("dark")}
+          className="flex cursor-pointer w-10 h-10 items-center justify-center"
+        >
           <FontAwesomeIcon
             icon={faMoon}
-            className="w-5 hover:text-yellow-300 transition-colors duration-300"
+            className="w-auto h-auto hover:text-yellow-300 transition-colors duration-300"
             size="lg"
             tabIndex={0}
             aria-label="dark mode button"

@@ -4,10 +4,14 @@ import Image from "next/image";
 import DarkModeSwitch from "./DarkModeSwitch";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faMagnifyingGlass,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import SearchCom from "./SearchCom";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 function Header() {
   const [searchIsOpen, setSearchIsOpen] = useState(false);
@@ -19,6 +23,7 @@ function Header() {
   function handleMenuOpen(boolean) {
     setMenuIsOpen(boolean);
   }
+
   return (
     // px-30 --xl
     <div className="flex relative items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 border-b-2 border-[#e9e9e9] gap-4 w-full ">
@@ -34,7 +39,7 @@ function Header() {
         <SearchCom />
       </div>
       <div className="hidden sm:block">
-        <div className="flex gap-4 text-md ">
+        <div className="flex gap-4 text-md items-center">
           <Link
             href="/"
             className="hover:text-[#fc5d0f] transition-colors duration-300"
@@ -47,13 +52,18 @@ function Header() {
           >
             About
           </Link>
-          <Link
-            className="hover:text-[#fc5d0f] transition-colors duration-300"
-            href="/Contact"
-          >
-            Contact
-          </Link>
-          <DarkModeSwitch />
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            <Link href="/sign-in">
+              <FontAwesomeIcon
+                icon={faUser}
+                className="cursor-pointer hover:text-[#fc5d0f] transition-colors duration-300"
+                size="md"
+              />
+            </Link>
+          </SignedOut>
         </div>
       </div>
 
