@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     const evt = await verifyWebhook(req);
-
+    const clerk = await clerkClient();
     // Do something with payload
     // For this guide, log payload to console
     const { id } = evt?.data;
@@ -31,7 +31,12 @@ export async function POST(req) {
         if (user && eventType === "user.created") {
           console.log("start creating and updating");
           try {
-            await clerkClient.users.updateUserMetadata(id, {
+            // await clerkClient.users.updateUserMetadata(id, {
+            //   publicMetadata: {
+            //     mongoId: user._id,
+            //   },
+            // });
+            await clerk.users.updateUserMetadata(id, {
               publicMetadata: {
                 mongoId: user._id,
               },
