@@ -5,17 +5,21 @@ import DarkModeSwitch from "./DarkModeSwitch";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBagShopping,
   faBars,
+  faCartShopping,
   faMagnifyingGlass,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchCom from "./SearchCom";
 import { useState } from "react";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 function Header() {
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const router = useRouter();
 
   function handleSearchOpen(boolean) {
     setSearchIsOpen(boolean);
@@ -53,13 +57,26 @@ function Header() {
             About
           </Link>
           <SignedIn>
-            <UserButton />
+            <UserButton>
+              <UserButton.MenuItems>
+                <UserButton.Action
+                  label="Cart"
+                  labelIcon={<FontAwesomeIcon icon={faCartShopping} />}
+                  onClick={() => router.push("/")}
+                />
+                <UserButton.Action
+                  label="orders"
+                  labelIcon={<FontAwesomeIcon icon={faBagShopping} />}
+                  onClick={() => router.push("/orders")}
+                />
+              </UserButton.MenuItems>
+            </UserButton>
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in">
               <FontAwesomeIcon
                 icon={faUser}
-                className="cursor-pointer hover:text-[#fc5d0f] transition-colors duration-300"
+                className="cursor-pointer hover:text-[#fc5d0f] transition-colors duration-300 "
                 size="md"
               />
             </Link>
@@ -68,7 +85,7 @@ function Header() {
       </div>
 
       {/*  ------------------------- mobile - small screens  ---------------------------------- */}
-      <div className="flex gap-5 sm:hidden pr-5">
+      <div className="flex gap-5 sm:hidden pr-5 items-center">
         <FontAwesomeIcon
           size="lg"
           className="cursor-pointer"
@@ -81,7 +98,31 @@ function Header() {
           className="cursor-pointer"
           icon={faBars}
         />
-        <FontAwesomeIcon size="lg" className="cursor-pointer" icon={faUser} />
+        <SignedIn>
+          <UserButton>
+            <UserButton.MenuItems>
+              <UserButton.Action
+                label="Cart"
+                labelIcon={<FontAwesomeIcon icon={faCartShopping} />}
+                onClick={() => router.push("/cart")}
+              />
+              <UserButton.Action
+                label="orders"
+                labelIcon={<FontAwesomeIcon icon={faBagShopping} />}
+                onClick={() => router.push("/orders")}
+              />
+            </UserButton.MenuItems>
+          </UserButton>
+        </SignedIn>
+        <SignedOut>
+          <Link href="/sign-in">
+            <FontAwesomeIcon
+              icon={faUser}
+              className="cursor-pointer hover:text-[#fc5d0f] transition-colors duration-300 "
+              size="md"
+            />
+          </Link>
+        </SignedOut>
       </div>
 
       {/* Search bar - mobile */}
@@ -117,7 +158,6 @@ function Header() {
           <Link href="/contact" onClick={() => handleMenuOpen(false)}>
             Contact
           </Link>
-          <DarkModeSwitch />
           <span
             className="px-1 cursor-pointer text-red-500"
             onClick={() => handleMenuOpen(false)}

@@ -14,6 +14,7 @@ export async function createOrUpdateUser(
       { clerkId: id },
       {
         $set: {
+          clerkId: id,
           firstName: first_name,
           lastName: last_name,
           profilePic: image_url,
