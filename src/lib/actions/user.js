@@ -20,8 +20,8 @@ export async function createOrUpdateUser(
           email: email_addresses[0].email_address,
         },
       },
-      // upset: true - if no previous info, just create a new one
-      { upset: true, new: true }
+      // upsert: true - if no previous info, just create a new one
+      { upsert: true, new: true }
     );
   } catch (err) {
     console.log("Could not update or add users", err.message);
