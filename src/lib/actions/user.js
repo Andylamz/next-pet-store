@@ -24,6 +24,8 @@ export async function createOrUpdateUser(
       // upsert: true - if no previous info, just create a new one
       { upsert: true, new: true }
     );
+    console.log(user);
+    return user;
   } catch (err) {
     console.log("Could not update or add users", err.message);
   }
