@@ -20,7 +20,7 @@ function DarkModeSwitch() {
         >
           <FontAwesomeIcon
             icon={faSun}
-            className=" w-auto h-auto hover:text-[#fc5d0f] transition-colors duration-300"
+            className=" w-full h-full group-hover:text-[#fc5d0f] transition-colors duration-300"
             size="lg"
             tabIndex={0}
             aria-label="light mode button"
@@ -34,7 +34,7 @@ function DarkModeSwitch() {
         >
           <FontAwesomeIcon
             icon={faMoon}
-            className="w-auto h-auto hover:text-yellow-300 transition-colors duration-300"
+            className="w-auto h-auto group-hover:text-yellow-300 transition-colors duration-300"
             size="lg"
             tabIndex={0}
             aria-label="dark mode button"

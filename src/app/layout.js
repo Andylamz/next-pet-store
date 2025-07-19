@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
             <div className="flex flex-col">
               <Header />
               <div className="xl:px-35 md:px-10 px-4 min-h-screen flex-1">
-                <div className="flex fixed right-7 bottom-4 w-10 h-10 bg-gray-700 justify-center items-center border border-gray-400 rounded-full text-white overflow-hidden dark:bg-black hover:bg-gray-800">
+                <div className="flex group fixed right-7 bottom-4 w-10 h-10 bg-gray-700 justify-center items-center border border-gray-400 rounded-full text-white overflow-hidden dark:bg-black hover:bg-gray-800 transition-colors duration-300">
                   <DarkModeSwitch />
                 </div>
                 {children}
