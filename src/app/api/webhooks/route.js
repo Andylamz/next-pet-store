@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     const evt = await verifyWebhook(req);
-    const clerk = await clerkClient();
 
     // Do something with payload
     // For this guide, log payload to console
@@ -19,7 +18,6 @@ export async function POST(req) {
 
     if (eventType === "user.created" || eventType === "user.updated") {
       const { first_name, last_name, image_url, email_addresses } = evt.data;
-      console.log("start creating and updating");
       try {
         const user = await createOrUpdateUser(
           id,
@@ -31,14 +29,12 @@ export async function POST(req) {
         console.log("eventtype: ", eventType);
         console.log("user: ", user);
         if (user && eventType === "user.created") {
+          console.log("start creating and updating");
           try {
-            // await clerkClient.users.updateUserMetadata(id, {
-            //   publicMetadata: {
-            //     mongoId: user._id,
-            //   },
-            // });
-            clerk.users.updateUserMetadata(id, {
-              publicMetadata: { mongoId: user._id },
+            await clerkClient.users.updateUserMetadata(id, {
+              publicMetadata: {
+                mongoId: user._id,
+              },
             });
             return NextResponse.json({
               success: true,
