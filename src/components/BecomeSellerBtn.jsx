@@ -20,7 +20,7 @@ function BecomeSellerBtn() {
   return (
     <div
       onClick={becomeSeller}
-      className="md:hover:text-[#fc5d0f] transition-colors duration-300 "
+      className="md:hover:text-[#fc5d0f] transition-colors duration-300 whitespace-nowrap "
     >
       <button className="cursor-pointer">Become Seller</button>
     </div>

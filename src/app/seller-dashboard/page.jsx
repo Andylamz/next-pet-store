@@ -1,5 +1,8 @@
+import { redirect } from "next/navigation";
+
 function page() {
-  return <div></div>;
+  redirect("/seller-dashboard/add-product");
+  return null;
 }
 
 export default page;

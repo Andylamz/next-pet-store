@@ -45,7 +45,7 @@ function Slider() {
             alt="advert2"
             width={4096}
             height={1624}
-            className="w-full md:block hidden"
+            className="w-full md:block object-cover  hidden"
           />
           <Image
             src="/assets/swiper2_sm.webp"
@@ -55,6 +55,15 @@ function Slider() {
             className="w-full md:hidden object-cover max-md:min-h-[500px]"
           />
         </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+        <Image
+          src="/assets/Banner_placeholder.jpg"
+          alt="placeholder"
+          width={1536}
+          height={1014}
+          className="w-full object-cover max-md:min-h-[500px]"
+        />
       </SwiperSlide>
     </Swiper>
   );

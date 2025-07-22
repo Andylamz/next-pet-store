@@ -7,19 +7,19 @@ function Navbar() {
         Seller Dashboard
       </div>
       <Link
-        href="/admin/add-product"
+        href="/seller-dashboard/add-product"
         className=" py-3 px-2 hover:bg-[#272727] rounded-md transition-colors duration-300"
       >
         Add Product
       </Link>
       <Link
-        href="/admin/product-list"
+        href="/seller-dashboard/product-list"
         className=" py-3 px-2 hover:bg-[#272727] rounded-md transition-colors duration-300"
       >
         Product List
       </Link>
       <Link
-        href="/admin/orders"
+        href="/seller-dashboard/orders"
         className=" py-3 px-2 hover:bg-[#272727] rounded-md transition-colors duration-300"
       >
         Orders
