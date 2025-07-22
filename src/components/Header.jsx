@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import DarkModeSwitch from "./DarkModeSwitch";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,18 +8,28 @@ import {
   faBars,
   faCartShopping,
   faMagnifyingGlass,
+  faTableColumns,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import BecomeSellerBtn from "../components/BecomeSellerBtn";
 import SearchCom from "./SearchCom";
-import { useEffect, useState } from "react";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { use, useState } from "react";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const [searchIsOpen, setSearchIsOpen] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const router = useRouter();
+  const { user } = useUser();
+  const isSeller = user?.publicMetadata.role === "seller" ? true : false;
+  const pathName = usePathname();
 
+  if (["/sign-in", "/sign-up"].includes(pathName)) {
+    console.log(pathName);
+    return null;
+  }
   function handleSearchOpen(boolean) {
     setSearchIsOpen(boolean);
   }
@@ -30,15 +39,15 @@ function Header() {
 
   return (
     // px-30 --xl
-    <div className="flex relative items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 border-b-2 border-[#e9e9e9] gap-4 w-full ">
-      <div>
+    <div className="flex relative items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 gap-4 w-full ">
+      <Link href="/">
         <Image
           src="/logo.png"
           width={120}
           height={80}
           alt="Andy Pet Store Logo"
         />
-      </div>
+      </Link>
       <div className="flex-1 hidden sm:block items-center  ">
         <SearchCom />
       </div>
@@ -56,6 +65,7 @@ function Header() {
           >
             About
           </Link>
+          <BecomeSellerBtn />
           <SignedIn>
             <UserButton>
               <UserButton.MenuItems>
@@ -65,10 +75,17 @@ function Header() {
                   onClick={() => router.push("/")}
                 />
                 <UserButton.Action
-                  label="orders"
+                  label="Orders"
                   labelIcon={<FontAwesomeIcon icon={faBagShopping} />}
                   onClick={() => router.push("/orders")}
                 />
+                {isSeller ? (
+                  <UserButton.Action
+                    label="Seller Dashboard"
+                    labelIcon={<FontAwesomeIcon icon={faTableColumns} />}
+                    onClick={() => router.push("/seller-dashboard")}
+                  />
+                ) : null}
               </UserButton.MenuItems>
             </UserButton>
           </SignedIn>
@@ -127,7 +144,7 @@ function Header() {
 
       {/* Search bar - mobile */}
       <div
-        className={`flex items-center dark:bg-black bg-white absolute left-0 top-0 transition-all duration-500 overflow-hidden h-full ${
+        className={`flex items-center dark:bg-black bg-white absolute left-0 top-0 transition-all duration-500 overflow-hidden h-full md:hidden ${
           searchIsOpen ? " px-5 w-full" : " w-0 px-0"
         } `}
       >
@@ -144,7 +161,7 @@ function Header() {
 
       {/* Menu bar - mobile */}
       <div
-        className={`flex items-center dark:bg-black bg-white absolute left-0 top-0 transition-all duration-500 overflow-hidden h-full ${
+        className={`flex items-center dark:bg-black bg-white absolute left-0 top-0 transition-all duration-500 overflow-hidden h-full md:hidden ${
           menuIsOpen ? " px-5 w-full" : " w-0 px-0"
         } `}
       >
@@ -155,9 +172,9 @@ function Header() {
           <Link href="/about" onClick={() => handleMenuOpen(false)}>
             About
           </Link>
-          <Link href="/contact" onClick={() => handleMenuOpen(false)}>
-            Contact
-          </Link>
+          <div onClick={() => handleMenuOpen(false)}>
+            <BecomeSellerBtn />
+          </div>
           <span
             className="px-1 cursor-pointer text-red-500"
             onClick={() => handleMenuOpen(false)}

@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
@@ -34,12 +35,14 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={` ${poppins.className} bg-white text-black dark:bg-black dark:text-white min-h-screen transition-colors duration-400`}
+          className={` ${poppins.className} bg-white text-black dark:bg-[#272727] dark:text-white min-h-screen transition-colors duration-400`}
         >
           <ThemeProvider attribute="class" defaultTheme="system">
             <div className="flex flex-col">
+              <ToastContainer />
               <Header />
-              <div className="xl:px-35 md:px-10 px-4 min-h-screen flex-1">
+              {/* xl:px-35 md:px-10 px-4 */}
+              <div className="min-h-screen flex-1">
                 <div className="flex group fixed right-7 bottom-4 w-10 h-10 bg-gray-700 justify-center items-center border border-gray-400 rounded-full text-white overflow-hidden dark:bg-black hover:bg-gray-800 transition-colors duration-300">
                   <DarkModeSwitch />
                 </div>
