@@ -128,6 +128,19 @@ function Header() {
                 labelIcon={<FontAwesomeIcon icon={faBagShopping} />}
                 onClick={() => router.push("/orders")}
               />
+              {isSeller ? (
+                <UserButton.Action
+                  label="Seller Dashboard"
+                  labelIcon={<FontAwesomeIcon icon={faTableColumns} />}
+                  onClick={() => router.push("/seller-dashboard")}
+                />
+              ) : (
+                <UserButton.Action
+                  label="Seller Dashboard"
+                  labelIcon={<FontAwesomeIcon icon={faTableColumns} />}
+                  onClick={() => router.push("/login")}
+                />
+              )}
             </UserButton.MenuItems>
           </UserButton>
         </SignedIn>
