@@ -1,10 +1,15 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
+import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function page() {
   const [image, setImage] = useState(false);
+  const { user } = useUser();
+
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -22,10 +27,39 @@ function page() {
     setData((data) => ({ ...data, [name]: value }));
   }
 
+  async function onSubmitHandler(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("category", data.category);
+    formData.append("price", data.price);
+    formData.append("image", image);
+    formData.append("mongoId", user.publicMetadata.mongoId);
+
+    const res = await axios.post("/api/addProduct", formData);
+
+    if (res.data.success) {
+      toast.success(res.data.msg);
+      setImage(false);
+      setData({
+        name: "",
+        description: "",
+        category: "dogs",
+        price: "",
+      });
+    } else {
+      return toast.error(res.data.msg);
+    }
+  }
   return (
     <div className="flex flex-col items-center mt-8 ">
       <h3 className="font-bold text-2xl">ADD PRODUCT</h3>
-      <form className="flex flex-col w-full mt-5 items-start">
+      <form
+        className="flex flex-col w-full mt-5 items-start"
+        onSubmit={onSubmitHandler}
+      >
         <p className="font-semibold">Product Image</p>
         <label className="mt-3 cursor-pointer" htmlFor="image">
           <Image
@@ -38,9 +72,10 @@ function page() {
         <input
           type="file"
           id="image"
+          name="image"
           hidden
           required
-          onChange={(e) => imageUploadHandler(e)}
+          onChange={(e) => setImage(e.target.files[0])}
         />
         <label className="font-semibold mt-3" htmlFor="name">
           Product Name
@@ -60,6 +95,7 @@ function page() {
         </label>
         <textarea
           name="description"
+          value={data.description}
           rows={10}
           type="text"
           id="description"
@@ -75,8 +111,9 @@ function page() {
                 Category
               </label>
               <select
-                className="border p-1"
+                className="border p-1 h-[33.79px]"
                 onChange={(e) => onChangeHandler(e)}
+                name="category"
               >
                 <option value="dogs">Dogs</option>
                 <option value="cats">Cats</option>
@@ -90,6 +127,7 @@ function page() {
               <input
                 type="text"
                 name="price"
+                value={data.price}
                 className="border max-w-25 p-1 "
                 placeholder="0"
                 onChange={(e) => onChangeHandler(e)}
