@@ -13,7 +13,9 @@ function Layout({ children }) {
       <div className="flex justify-center py-3 bg-[#0f0f0f] sm:gap-5 gap-2 xl:px-35 md:px-10 px-4  whitespace-nowrap sm:justify-start text-white">
         <Navbar />
       </div>
-      <div className="sm:gap-5 gap-2 xl:px-35 md:px-10 px-4">{children}</div>
+      <div className="sm:gap-5 gap-2 xl:px-35 md:px-10 px-4 h-screen">
+        {children}
+      </div>
     </>
   );
 }

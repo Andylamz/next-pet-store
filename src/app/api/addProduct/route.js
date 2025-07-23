@@ -26,7 +26,7 @@ export async function POST(req) {
   const category = formData.get("category");
   const price = formData.get("price");
   const image = formData.get("image");
-  const mongoId = formData.get("mongoId");
+  const sellerMongoId = formData.get("mongoId");
 
   if (!image) {
     return NextResponse.json({ success: false, msg: "No Image Added" });
@@ -41,7 +41,7 @@ export async function POST(req) {
       description,
       category,
       price: +price,
-      mongoId,
+      sellerMongoId,
       image: uploadImage.secure_url,
     };
 

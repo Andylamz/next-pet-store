@@ -8,7 +8,7 @@ import Image from "next/image";
 
 function Footer() {
   return (
-    <div className="flex justify-around flex-col gap-2 sm:gap-0 min-w-screen bg-black  pt-5 pb-15 items-center px-5 mt-20">
+    <div className="flex justify-around flex-col gap-2 sm:gap-0 max-w-screen bg-black pt-5 pb-15 items-center px-5 mt-20">
       <Image
         src="/logo.png"
         width={120}

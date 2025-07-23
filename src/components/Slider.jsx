@@ -13,7 +13,7 @@ function Slider() {
   return (
     <Swiper
       modules={[Scrollbar, Autoplay]}
-      className="w-full max-md:min-h-[500px] rounded-xl overflow-hidden mt-8"
+      className="w-full max-md:min-h-[500px] rounded-xl overflow-hidden mt-8 max-h-[573px]"
       loop={true}
       spaceBetween={50}
       slidesPerView={1}
