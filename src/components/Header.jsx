@@ -39,7 +39,7 @@ function Header() {
 
   return (
     // px-30 --xl
-    <div className="flex relative items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 gap-4 w-full ">
+    <div className="flex sticky top-0 z-10 items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 gap-4 w-full  bg-white dark:bg-[#272727]">
       <Link href="/">
         <Image
           src="/logo.png"

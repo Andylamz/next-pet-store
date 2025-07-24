@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function RecommendSlider() {
+function RecommendSlider({ title }) {
   const [data, setData] = useState([]);
 
   async function fetchAllProductsData() {
@@ -25,13 +25,10 @@ function RecommendSlider() {
     fetchAllProductsData();
   }, []);
   return (
-    <div className="mt-50">
-      <h2 className="font-semibold text-lg mb-3">
-        Products you might find interesting
-      </h2>
+    <div className="mt-24">
+      <h2 className="font-semibold text-3xl mb-8">{title}</h2>
       <Swiper
         modules={[Navigation]}
-        loop={true}
         centeredSlides={false}
         spaceBetween={20}
         breakpoints={{

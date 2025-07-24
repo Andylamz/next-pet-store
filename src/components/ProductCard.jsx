@@ -22,7 +22,7 @@ function ProductCard({
           width={280}
           height={80}
           alt=""
-          className="group-hover:scale-105 transition-all duration-200"
+          className="group-hover:scale-105 transition-all duration-700"
         />
       </div>
       <div className="flex flex-col mt-3">

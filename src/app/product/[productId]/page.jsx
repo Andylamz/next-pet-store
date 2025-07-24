@@ -92,7 +92,9 @@ function page({ params }) {
               </div>
             </div>
           </div>
-          <RecommendSlider />
+          <div className="mt-26">
+            <RecommendSlider title="Products you might find interesting" />
+          </div>
         </div>
       )}
       {isLoading && (
