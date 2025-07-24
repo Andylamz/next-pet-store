@@ -114,6 +114,7 @@ function page() {
                 className="border p-1 h-[33.79px]"
                 onChange={(e) => onChangeHandler(e)}
                 name="category"
+                value={data.category}
               >
                 <option value="dogs">Dogs</option>
                 <option value="cats">Cats</option>
@@ -136,7 +137,7 @@ function page() {
             </div>
           </div>
         </div>
-        <button className="mt-5 py-1 px-3 cursor-pointer bg-black text-white dark:bg-white dark:text-black">
+        <button className="mt-5 py-1 px-5 cursor-pointer bg-black text-white dark:bg-white dark:text-black">
           ADD
         </button>
       </form>

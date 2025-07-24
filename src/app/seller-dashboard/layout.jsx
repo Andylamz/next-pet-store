@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, getUser } from "@clerk/nextjs/server";
 import Navbar from "../../components/seller/Navbar";
 import { redirect } from "next/navigation";
 
@@ -11,7 +11,7 @@ export const metadata = {
 
 async function Layout({ children }) {
   const user = await auth();
-  console.log(user);
+
   if (!user.userId) {
     redirect("/sign-in");
   }

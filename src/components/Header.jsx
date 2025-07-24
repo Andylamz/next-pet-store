@@ -39,7 +39,7 @@ function Header() {
 
   return (
     // px-30 --xl
-    <div className="flex sticky top-0 z-10 items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 gap-4 w-full  bg-white dark:bg-[#272727]">
+    <div className="flex sticky top-0 z-10 items-center justify-between xl:px-35 md:px-10 sm:px-2 px-4 py-5 gap-4 w-full duration-500  bg-white dark:bg-[#272727]">
       <Link href="/">
         <Image
           src="/logo.png"
@@ -72,12 +72,12 @@ function Header() {
                 <UserButton.Action
                   label="Cart"
                   labelIcon={<FontAwesomeIcon icon={faCartShopping} />}
-                  onClick={() => router.push("/")}
+                  onClick={() => router.push("/user/cart")}
                 />
                 <UserButton.Action
                   label="Orders"
                   labelIcon={<FontAwesomeIcon icon={faBagShopping} />}
-                  onClick={() => router.push("/orders")}
+                  onClick={() => router.push("/user/orders")}
                 />
                 {isSeller ? (
                   <UserButton.Action
@@ -121,12 +121,12 @@ function Header() {
               <UserButton.Action
                 label="Cart"
                 labelIcon={<FontAwesomeIcon icon={faCartShopping} />}
-                onClick={() => router.push("/cart")}
+                onClick={() => router.push("/user/cart")}
               />
               <UserButton.Action
                 label="orders"
                 labelIcon={<FontAwesomeIcon icon={faBagShopping} />}
-                onClick={() => router.push("/orders")}
+                onClick={() => router.push("/user/orders")}
               />
               {isSeller ? (
                 <UserButton.Action
@@ -162,7 +162,7 @@ function Header() {
         } `}
       >
         <div className="flex items-center gap-6 w-full">
-          <SearchCom />
+          <SearchCom handleSearchOpen={handleSearchOpen} />
           <span
             className="px-1 cursor-pointer text-red-500"
             onClick={() => handleSearchOpen(false)}

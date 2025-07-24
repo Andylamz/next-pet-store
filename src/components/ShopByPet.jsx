@@ -17,7 +17,7 @@ function ShopByPet() {
       </div>
       <div className="flex max-lg:flex-wrap justify-evenly gap-9">
         <Link
-          href="/"
+          href="/search/dog"
           className="h-[433px] overflow-hidden rounded-3xl max-w-[600px] sm:min-w-[445px] min-w-75 flex-1 lg:hover:-translate-y-5 transition-all duration-800"
         >
           <Image
@@ -30,7 +30,7 @@ function ShopByPet() {
         </Link>
 
         <Link
-          href="/"
+          href="/search/cat"
           className="h-[433px] overflow-hidden rounded-3xl max-w-[600px] sm:min-w-[445px] min-w-75 flex-1 lg:hover:-translate-y-5 transition-all duration-800"
         >
           <Image
