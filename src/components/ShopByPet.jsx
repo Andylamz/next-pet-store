@@ -9,10 +9,10 @@ function ShopByPet() {
           Shop By Pet
         </h3>
         <Link
-          href="/"
-          className="hover:text-[#fc5d0f] transition-colors duration-300"
+          href="/all-products"
+          className="hover:text-[#fc5d0f] transition-colors duration-300 max-sm:text-sm"
         >
-          view all products
+          All products
         </Link>
       </div>
       <div className="flex max-lg:flex-wrap justify-evenly gap-9">

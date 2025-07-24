@@ -59,7 +59,7 @@ function page({ params }) {
             </div>
             <div className="max-w-[600px] max-md:w-full text-[#aaacae]">
               <h4 className="text-2xl font-bold ">{data.name}</h4>
-              <div className="mt-10 text-md text-[#aaacae] border-b pb-10 border-[#ccced1]">
+              <div className="mt-10 whitespace-pre-line text-md text-[#aaacae] border-b pb-10 border-[#ccced1]">
                 <p>{data.description}</p>
                 <p className="mt-10 font-bold text-3xl">£{data.price}</p>
               </div>
