@@ -6,8 +6,17 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Footer() {
+  const [email, setEmail] = useState("");
+
+  function handleSubmitEmail() {
+    setEmail("");
+    toast.success("Signed Up Successfully");
+  }
+
   return (
     <div className="mt-25 ">
       <div className="flex justify-center flex-wrap min-h-40 bg-[#030712] text-white  items-center gap-2 lg:gap-50  xl:px-35 md:px-10 px-4">
@@ -20,8 +29,14 @@ function Footer() {
           <input
             type="text"
             className="border px-2 py-2 w-full min-w-50 max-w-120"
-          ></input>
-          <button className="border px-4 py-2 cursor-pointer whitespace-nowrap">
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter Your Email Address Here"
+          />
+          <button
+            className="border px-4 py-2 cursor-pointer whitespace-nowrap"
+            onClick={handleSubmitEmail}
+          >
             Sign up
           </button>
         </div>

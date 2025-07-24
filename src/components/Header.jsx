@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import BecomeSellerBtn from "../components/BecomeSellerBtn";
 import SearchCom from "./SearchCom";
-import { use, useState } from "react";
+import { useState } from "react";
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";

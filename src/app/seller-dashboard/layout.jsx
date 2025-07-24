@@ -9,10 +9,11 @@ export const metadata = {
     "The page is the seller dashboard, where sellers can add products, view product list and manage orders",
 };
 
-function Layout({ children }) {
-  const { useId } = auth();
-  if (!useId) {
-    return redirect("/sign-in");
+async function Layout({ children }) {
+  const user = await auth();
+  console.log(user);
+  if (!user.userId) {
+    redirect("/sign-in");
   }
   return (
     <>

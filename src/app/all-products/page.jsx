@@ -29,7 +29,7 @@ function page() {
   }, []);
   return (
     <div className="flex w-full xl:px-35 md:px-10 px-4 mt-8 text-center items-center flex-col">
-      <h3 className="font-semibold text-2xl bg">All Products</h3>
+      <h3 className="font-semibold text-2xl mb-8">All Products</h3>
       {!isLoading && data && (
         <div className="flex mt-8 justify-center">
           <div className="flex flex-wrap gap-10 justify-center">
