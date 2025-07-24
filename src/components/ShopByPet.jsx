@@ -10,7 +10,7 @@ function ShopByPet() {
         </h3>
         <Link
           href="/all-products"
-          className="hover:text-[#fc5d0f] transition-colors duration-300 max-sm:text-sm"
+          className="hover:text-[#fc5d0f] transition-colors duration-300 text-[#aaacae] max-sm:text-sm "
         >
           All products
         </Link>
