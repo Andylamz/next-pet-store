@@ -3,11 +3,15 @@ import axios from "axios";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import RecommendSlider from "@/components/RecommendSlider";
+import { useUser } from "@clerk/nextjs";
+import { toast } from "react-toastify";
 function page({ params }) {
   const [data, setData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { productId } = use(params);
+  const user = useUser();
+  const buyerMongoId = user?.user?.publicMetadata?.mongoId;
 
   function handleCounter(action) {
     if (action === "add") {
@@ -26,9 +30,7 @@ function page({ params }) {
           productId,
         },
       });
-      console.log(res.data);
       if (res.data.success) {
-        console.log(res.data.data);
         setData(res.data.data);
         return setIsLoading(false);
       }
@@ -36,6 +38,22 @@ function page({ params }) {
       setIsLoading(false);
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function handleAddToCart() {
+    try {
+      const res = await axios.post("/api/cartInfo", {
+        productId,
+        buyerMongoId,
+        quantity,
+      });
+      console.log(res);
+      if (res.data.success) {
+        toast.success(res.data.msg);
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
   }
 
@@ -84,7 +102,7 @@ function page({ params }) {
                     +
                   </button>
                 </div>
-                <div className="max-sm:w-full">
+                <div className="max-sm:w-full" onClick={handleAddToCart}>
                   <button className="px-10 py-3 bg-[#fc9e2c] text-white hover:bg-[#ff8c00] transition-colors duration-200 cursor-pointer whitespace-nowrap max-sm:w-full ">
                     ADD TO CART
                   </button>
