@@ -1,5 +1,5 @@
 "use client";
-import CarttableItem from "@/components/user/Carttableitem";
+import CarttableItem from "@/components/user/CarttableItem";
 import OrderSummary from "@/components/user/OrderSummary";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
