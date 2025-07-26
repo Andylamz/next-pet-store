@@ -63,7 +63,7 @@ function page() {
       <div className="flex-5">
         {/* Left Header */}
         <div className="flex justify-between items-center py-4 px-1 border-b-2 border-[#aaacae] ">
-          <h3 className="text-3xl font-medium">
+          <h3 className="text-3xl font-medium max-sm:text-2xl">
             <span className="text-[#aaacae]">Shopping </span>
             <span className="text-[#fc5d0f]">Cart</span>
           </h3>
@@ -115,7 +115,7 @@ function page() {
       {/* Order Summary - right */}
       <div className="flex flex-col flex-3 bg-[#f8f8f8] text-black py-4 px-8">
         <div>
-          <h3 className="text-2xl font-medium border-b border-[#aaacae] py-3 my-5">
+          <h3 className="text-2xl font-medium border-b border-[#aaacae] py-3 my-5 max-sm:text-xl">
             Order Summary
           </h3>
           <div className="border-b border-[#aaacae] pb-3 mb-5">
@@ -135,7 +135,7 @@ function page() {
           <div className="border-b border-[#aaacae] pb-5">
             <h3 className="text-lg">Promo Code</h3>
             <form
-              className="flex mt-2 gap-5 "
+              className="flex mt-2 gap-5 max-sm:flex-col "
               onSubmit={(e) => handlePromoCode(e)}
             >
               <input
@@ -144,7 +144,7 @@ function page() {
                 className="flex-3 bg-white p-2"
                 ref={code}
               />
-              <button className="flex-1 bg-[#fc5d0f] text-white cursor-pointer">
+              <button className="flex-1 bg-[#fc5d0f] text-white cursor-pointer py-2">
                 Apply
               </button>
             </form>
@@ -174,7 +174,10 @@ function page() {
             <div className="flex justify-between mt-4 items-center">
               <p className="text-2xl font-semibold">Total</p>
               <p className="text-xl font-semibold">
-                £{(totalPrice - discount).toFixed(2)}
+                £
+                {isPromo
+                  ? (totalPrice - discount).toFixed(2)
+                  : totalPrice.toFixed(2)}
               </p>
             </div>
 
