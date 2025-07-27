@@ -26,7 +26,7 @@ function Header() {
   const isSeller = user?.publicMetadata.role === "seller" ? true : false;
   const pathName = usePathname();
 
-  if (["/sign-in", "/sign-up"].includes(pathName)) {
+  if (["/sign-in", "/sign-up", "/user/verify"].includes(pathName)) {
     console.log(pathName);
     return null;
   }

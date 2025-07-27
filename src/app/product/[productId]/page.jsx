@@ -50,10 +50,14 @@ function page({ params }) {
       });
       console.log(res);
       if (res.data.success) {
-        toast.success(res.data.msg);
+        toast.success(res.data.msg, {
+          autoClose: 1000,
+        });
       }
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message, {
+        autoClose: 1000,
+      });
     }
   }
 

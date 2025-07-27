@@ -3,6 +3,7 @@ import CarttableItem from "@/components/user/CarttableItem";
 import OrderSummary from "@/components/user/OrderSummary";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,15 +12,20 @@ function page() {
   const [isFetched, setIsFetched] = useState(false);
   const [isPromo, setIsPromo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [cartId, setCartId] = useState("");
   const code = useRef();
   const promoCode = process.env.NEXT_PUBLIC_PROMO_CODE;
   const user = useUser();
   const buyerMongoId = user?.user?.publicMetadata?.mongoId;
 
+  const router = useRouter();
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.quantity * item.productId.price;
   }, 0);
   let discount = (Number(totalPrice) * 0.1).toFixed(2);
+  const finalPrice = isPromo
+    ? (totalPrice - discount).toFixed(2)
+    : totalPrice.toFixed(2);
 
   async function handleGetCartData() {
     try {
@@ -28,9 +34,10 @@ function page() {
           buyerMongoId,
         },
       });
-      console.log(res);
+      console.log("cart=>", res.data);
       if (res.data.success) {
         setCart(res.data.data?.items || []);
+        setCartId(res.data.data._id);
       }
     } catch (err) {
       console.log(err.message);
@@ -46,6 +53,29 @@ function page() {
     } else {
       toast.error("Invalid Promo Code");
       code.current.value = "";
+    }
+  }
+
+  async function handlePlaceOrder(e) {
+    e.preventDefault();
+    const order = {
+      buyerMongoId,
+      totalPrice: finalPrice,
+      products: cart.map((item) => ({
+        productId: item.productId._id,
+        sellerMongoId: item.productId.sellerMongoId,
+        quantity: item.quantity,
+        price: item.productId.price,
+        cartId,
+      })),
+    };
+    const res = await axios.post("/api/placeOrder", order);
+    // return order Id
+    if (res.data.success) {
+      const orderId = res.data.data._id;
+      return router.push(`/user/checkout?orderId=${orderId}`);
+    } else {
+      return console.log("failed");
     }
   }
 
@@ -173,16 +203,14 @@ function page() {
             </div>
             <div className="flex justify-between mt-4 items-center">
               <p className="text-2xl font-semibold">Total</p>
-              <p className="text-xl font-semibold">
-                £
-                {isPromo
-                  ? (totalPrice - discount).toFixed(2)
-                  : totalPrice.toFixed(2)}
-              </p>
+              <p className="text-xl font-semibold">£{finalPrice}</p>
             </div>
 
             <div className="mt-5">
-              <button className="w-full py-3 mb-4 bg-[#fc5d0f] cursor-pointer text-white">
+              <button
+                className="w-full py-3 mb-4 bg-[#fc5d0f] cursor-pointer text-white"
+                onClick={handlePlaceOrder}
+              >
                 Place Order
               </button>
             </div>
