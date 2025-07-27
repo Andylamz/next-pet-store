@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -16,6 +17,12 @@ function Footer() {
     setEmail("");
     toast.success("Signed Up Successfully");
   }
+  const path = usePathname();
+  if (path.includes("/user/verify")) {
+    return null;
+  }
+  // path = '/' or '/user' or '/sell-dashboard'
+  console.log(path);
 
   return (
     <div className="mt-25 ">

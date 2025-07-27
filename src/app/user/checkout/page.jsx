@@ -3,7 +3,8 @@
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function page() {
   const [buyerName, setBuyerName] = useState("");
@@ -11,11 +12,10 @@ function page() {
   const [street, setStreet] = useState("");
   const [postcode, setPostcode] = useState("");
   const [city, setCity] = useState("");
+  const [cartId, setCartId] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
-
-  console.log(orderId);
 
   async function handlePlaceOrder(e) {
     e.preventDefault();
@@ -32,16 +32,54 @@ function page() {
         status: "paid",
       });
       if (res.data.success) {
+        handleEmptyCart();
         router.push("/user/verify");
       }
     } catch {
-      console.log("Failed");
+      toast.error("Something Went Wrong", {
+        autoClose: 2000,
+      });
     }
   }
 
+  async function getCartId() {
+    try {
+      const res = await axios.get("/api/placeOrder", {
+        params: {
+          orderId,
+        },
+      });
+      console.log(res.data.data.cartId);
+      if (res?.data?.success) {
+        setCartId(res.data.data.cartId);
+      }
+    } catch {
+      console.log(res.data.data);
+    }
+  }
+
+  async function handleEmptyCart() {
+    try {
+      const res = await axios.delete("/api/placeOrder", {
+        data: { cartId },
+      });
+      if (res.data.success) {
+        console.log(res);
+      }
+    } catch {
+      console.log(res);
+    }
+  }
+  useEffect(() => {
+    getCartId();
+  }, []);
+
   return (
     <div className="xl:px-35 md:px-10 px-4 w-full mt-8">
-      <form className="flex flex-col justify-center max-w-125 mx-auto px-2">
+      <form
+        className="flex flex-col justify-center max-w-125 mx-auto px-2"
+        onSubmit={handlePlaceOrder}
+      >
         {/* Personal Info */}
         <div className="flex flex-col gap-2">
           <h3 className="text-2xl font-medium max-sm:text-xl mb-4">
@@ -133,10 +171,7 @@ function page() {
             </div>
           </div>
         </div>
-        <button
-          className="w-full py-3 mt-12 bg-[#fc5d0f] cursor-pointer text-white"
-          onClick={handlePlaceOrder}
-        >
+        <button className="w-full py-3 mt-12 bg-[#fc5d0f] cursor-pointer text-white">
           Place Order
         </button>
       </form>

@@ -1,10 +1,12 @@
 "use client";
+
 import axios from "axios";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import RecommendSlider from "@/components/RecommendSlider";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "react-toastify";
+
 function page({ params }) {
   const [data, setData] = useState(null);
   const [quantity, setQuantity] = useState(1);

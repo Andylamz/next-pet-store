@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default async function Layout({ children }) {
   const user = await auth();
@@ -7,5 +7,5 @@ export default async function Layout({ children }) {
     redirect("/sign-in");
     return null;
   }
-  return <>{children}</>;
+  return <div className="min-h-screen">{children}</div>;
 }

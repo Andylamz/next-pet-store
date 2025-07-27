@@ -18,8 +18,6 @@ function page() {
   const user = useUser();
   const buyerMongoId = user?.user?.publicMetadata?.mongoId;
 
-  console.log(cartId);
-
   const router = useRouter();
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.quantity * item.productId.price;
@@ -47,7 +45,7 @@ function page() {
 
   function handlePromoCode(e) {
     e.preventDefault();
-    if (promoCode === code.current.value) {
+    if (promoCode === code.current.value.trim()) {
       setIsPromo(true);
       code.current.value = "";
       toast.success("Promo Code Applied");
@@ -58,6 +56,7 @@ function page() {
   }
 
   async function handlePlaceOrder(e) {
+    setIsLoading(true);
     e.preventDefault();
     console.log(cartId);
     const order = {
@@ -67,27 +66,30 @@ function page() {
       products: cart.map((item) => ({
         productId: item.productId._id,
         sellerMongoId: item.productId.sellerMongoId,
-        quantity: item.quantity,
         price: item.productId.price,
+        image: item.productId.image,
+        quantity: item.quantity,
+        name: item.productId.name,
       })),
     };
     const res = await axios.post("/api/placeOrder", order);
     // return order Id
     if (res.data.success) {
       const orderId = res.data.data._id;
+      setIsLoading(false);
       return router.push(`/user/checkout?orderId=${orderId}`);
     } else {
+      setIsLoading(false);
+
       return console.log(res.data.data);
     }
   }
 
   useEffect(() => {
-    setIsLoading(true);
     if (!isFetched && buyerMongoId) {
       handleGetCartData();
       setIsFetched(true);
     }
-    setIsLoading(false);
   }, [user]);
 
   return (
@@ -210,8 +212,11 @@ function page() {
 
             <div className="mt-5">
               <button
-                className="w-full py-3 mb-4 bg-[#fc5d0f] cursor-pointer text-white"
+                className={`w-full py-3 mb-4 bg-[#fc5d0f] cursor-pointer text-white ${
+                  isLoading ? ["bg-gray-100"] : ""
+                } `}
                 onClick={handlePlaceOrder}
+                disabled={isLoading}
               >
                 Place Order
               </button>
