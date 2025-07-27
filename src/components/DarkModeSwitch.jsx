@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 function DarkModeSwitch() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const currentTheme = theme === "system" ? "light" : theme;
 
   useEffect(() => setMounted(true), []);
 

@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
         <body
           className={` ${poppins.className} bg-white text-black dark:bg-[#272727] dark:text-white min-h-screen transition-colors duration-400`}
         >
-          <ThemeProvider attribute="class" defaultTheme="system">
+          <ThemeProvider attribute="class" defaultTheme="light">
             <div className="flex flex-col">
               <ToastContainer />
               <Header />

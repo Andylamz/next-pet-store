@@ -18,6 +18,8 @@ function page() {
   const user = useUser();
   const buyerMongoId = user?.user?.publicMetadata?.mongoId;
 
+  console.log(cartId);
+
   const router = useRouter();
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.quantity * item.productId.price;
@@ -34,7 +36,6 @@ function page() {
           buyerMongoId,
         },
       });
-      console.log("cart=>", res.data);
       if (res.data.success) {
         setCart(res.data.data?.items || []);
         setCartId(res.data.data._id);
@@ -58,15 +59,16 @@ function page() {
 
   async function handlePlaceOrder(e) {
     e.preventDefault();
+    console.log(cartId);
     const order = {
       buyerMongoId,
       totalPrice: finalPrice,
+      cartId,
       products: cart.map((item) => ({
         productId: item.productId._id,
         sellerMongoId: item.productId.sellerMongoId,
         quantity: item.quantity,
         price: item.productId.price,
-        cartId,
       })),
     };
     const res = await axios.post("/api/placeOrder", order);
@@ -75,7 +77,7 @@ function page() {
       const orderId = res.data.data._id;
       return router.push(`/user/checkout?orderId=${orderId}`);
     } else {
-      return console.log("failed");
+      return console.log(res.data.data);
     }
   }
 

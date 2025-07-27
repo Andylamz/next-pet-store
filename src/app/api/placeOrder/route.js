@@ -6,12 +6,17 @@ export async function POST(req) {
   await connectDB();
   const body = await req.json();
   const { buyerMongoId, totalPrice, products, cartId } = body;
-
+  console.log(cartId);
   try {
-    const res = await OrderModel.create({ buyerMongoId, totalPrice, products });
+    const res = await OrderModel.create({
+      buyerMongoId,
+      totalPrice,
+      products,
+      cartId,
+    });
     return NextResponse.json({ success: true, data: res });
-  } catch {
-    return NextResponse.json({ success: false, data: null });
+  } catch (err) {
+    return NextResponse.json({ success: false, data: err.message });
   }
 }
 
