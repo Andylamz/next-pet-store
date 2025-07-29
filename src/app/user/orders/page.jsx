@@ -15,12 +15,13 @@ function page() {
       const res = await axios.get("/api/UserOrders", {
         params: {
           buyerMongoId,
+          isDetails: false,
         },
       });
       console.log(res);
       if (res.data.success) {
         setOrders(res.data.data);
-        console.log(res.data.data);
+        console.log(res.data);
       }
     } catch (err) {}
   }
@@ -34,9 +35,11 @@ function page() {
 
   return (
     <div className="flex flex-col items-center xl:px-35 md:px-10 px-4 mt-8 w-full ">
-      <h3 className="text-2xl font-semibold">My Orders</h3>
+      <h3 className="w-full max-w-[1100px] text-xl font-semibold text-[#aaacae]">
+        Recent Orders
+      </h3>
       <div className="w-full max-w-[1100px] mt-8 flex flex-col gap-3">
-        {orders.length > 0 &&
+        {orders?.length > 0 &&
           orders
             .slice()
             .reverse()
@@ -53,6 +56,11 @@ function page() {
                 status={order.status}
               />
             ))}
+        {orders?.length === 0 && (
+          <div className="px-3 pt-40 text-center rounded-md text-[#aaacae]">
+            No Orders
+          </div>
+        )}
       </div>
     </div>
   );

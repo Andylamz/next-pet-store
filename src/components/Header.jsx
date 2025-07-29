@@ -59,12 +59,12 @@ function Header() {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             className="hover:text-[#fc5d0f] transition-colors duration-300"
             href="/about"
           >
             About
-          </Link>
+          </Link> */}
           <BecomeSellerBtn />
           <SignedIn>
             <UserButton>
@@ -182,9 +182,9 @@ function Header() {
           <Link href="/" onClick={() => handleMenuOpen(false)}>
             Home
           </Link>
-          <Link href="/about" onClick={() => handleMenuOpen(false)}>
+          {/* <Link href="/about" onClick={() => handleMenuOpen(false)}>
             About
-          </Link>
+          </Link> */}
           <div onClick={() => handleMenuOpen(false)}>
             <BecomeSellerBtn />
           </div>

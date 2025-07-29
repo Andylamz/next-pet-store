@@ -18,7 +18,7 @@ function UserOrderCom({
     month: "long",
     year: "numeric",
   });
-  console.log(date);
+
   return (
     <Link
       href={
@@ -26,7 +26,7 @@ function UserOrderCom({
           ? `/user/checkout?orderId=${orderId}`
           : `/user/orders/${orderId}`
       }
-      className="flex bg-gray-100 rounded-lg dark:bg-[#0f0f0f] dark:text-gray-200 transition-all duration-800 px-4 py-3 gap-4 lg:hover:translate-x-10 cursor-pointer max-sm:text-xs "
+      className="flex rounded-lg dark:bg-[#0f0f0f] dark:text-gray-200 transition-all duration-800 px-4 py-3 gap-4 lg:hover:translate-x-10 cursor-pointer max-sm:text-xs "
     >
       {/* left */}
       <div className="min-w-30 rounded-lg overflow-hidden sm:block hidden">
@@ -47,8 +47,12 @@ function UserOrderCom({
           </p>
         </div>
         <div className="sm:mb-2">
-          <p className="font-semibold">£{totalPrice}</p>
-          <p className="text-sm max-sm:text-[10px] ">
+          <p className="font-semibold">£{totalPrice.toFixed(2)}</p>
+          <p
+            className={`text-sm max-sm:text-[10px] ${
+              status === "pending" ? "text-red-400" : ""
+            }`}
+          >
             status: {status} {status === "pending" ? "(Click to pay now)" : ""}
           </p>
           <p className="max-sm:text-[10px] text-sm">Order Placed: {date}</p>

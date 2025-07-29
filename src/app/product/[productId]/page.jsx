@@ -85,7 +85,9 @@ function page({ params }) {
               <h4 className="text-2xl font-bold ">{data.name}</h4>
               <div className="mt-10 whitespace-pre-line text-md text-[#aaacae] border-b pb-10 border-[#ccced1]">
                 <p>{data.description}</p>
-                <p className="mt-10 font-bold text-3xl">£{data.price}</p>
+                <p className="mt-10 font-bold text-3xl">
+                  £{data.price.toFixed(2)}
+                </p>
               </div>
 
               {/* Lower part */}

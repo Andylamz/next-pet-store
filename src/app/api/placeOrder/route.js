@@ -6,10 +6,11 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   await connectDB();
   const body = await req.json();
-  const { buyerMongoId, totalPrice, products, cartId } = body;
+  const { buyerMongoId, totalPrice, products, cartId, discount } = body;
 
   try {
     const res = await OrderModel.create({
+      discount,
       buyerMongoId,
       totalPrice,
       products,
@@ -27,12 +28,16 @@ export async function PATCH(req) {
   const { address, phone, buyerName, orderId, status } = body;
 
   try {
-    const res = await OrderModel.findByIdAndUpdate(orderId, {
-      address,
-      phone,
-      buyerName,
-      status,
-    });
+    const res = await OrderModel.findByIdAndUpdate(
+      orderId,
+      {
+        address,
+        phone,
+        buyerName,
+        status,
+      },
+      { new: true }
+    );
     return NextResponse.json({ success: true, data: res });
   } catch (err) {
     return NextResponse.json({ success: false, data: err.message });

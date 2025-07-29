@@ -59,10 +59,12 @@ function page() {
     setIsLoading(true);
     e.preventDefault();
     console.log(cartId);
+
     const order = {
       buyerMongoId,
       totalPrice: finalPrice,
       cartId,
+      discount: isPromo,
       products: cart.map((item) => ({
         productId: item.productId._id,
         sellerMongoId: item.productId.sellerMongoId,
@@ -72,6 +74,7 @@ function page() {
         name: item.productId.name,
       })),
     };
+
     const res = await axios.post("/api/placeOrder", order);
     // return order Id
     if (res.data.success) {

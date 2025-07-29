@@ -31,7 +31,7 @@ function ProductCard({
           {description}
         </p>
         <div className="flex justify-between items-center">
-          <span>£{price}</span>
+          <span>£{price.toFixed(2)}</span>
           <button className="px-5 py-2 border border-[#aaacae] rounded-2xl text-[#aaacae] text-xs hover:text-white hover:bg-[#aaacae] cursor-pointer transition-colors duration-300">
             Detail
           </button>

@@ -44,8 +44,15 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      tracking: {
+        type: String,
+      },
     },
   ],
+  discount: {
+    type: String,
+    required: true,
+  },
   address: {
     street: { type: String },
     postcode: { type: String },
