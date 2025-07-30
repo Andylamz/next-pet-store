@@ -6,6 +6,7 @@ import { use, useEffect, useState } from "react";
 import RecommendSlider from "@/components/RecommendSlider";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 function page({ params }) {
   const [data, setData] = useState(null);
@@ -14,7 +15,7 @@ function page({ params }) {
   const { productId } = use(params);
   const user = useUser();
   const buyerMongoId = user?.user?.publicMetadata?.mongoId;
-
+  const router = useRouter();
   function handleCounter(action) {
     if (action === "add") {
       setQuantity((quantity) => quantity + 1);
@@ -44,13 +45,19 @@ function page({ params }) {
   }
 
   async function handleAddToCart() {
+    if (!user.user) {
+      toast.error("Please Sign in", {
+        autoClose: 800,
+      });
+      return router.push("/sign-in");
+    }
     try {
       const res = await axios.post("/api/cartInfo", {
         productId,
         buyerMongoId,
         quantity,
       });
-      console.log(res);
+
       if (res.data.success) {
         toast.success(res.data.msg, {
           autoClose: 1000,
@@ -71,55 +78,63 @@ function page({ params }) {
   return (
     <>
       {data && (
-        <div className=" mt-25 xl:px-35 md:px-10 px-4">
-          <div className="flex justify-center max-lg:flex-col max-lg:items-center gap-20">
-            <div className="min-w-[500px] max-md:min-w-[350px]">
-              <Image
-                src={data.image}
-                width={500}
-                height={200}
-                alt={`Image of ${data?.name}`}
-              />
-            </div>
-            <div className="max-w-[600px] max-md:w-full text-[#aaacae]">
-              <h4 className="text-2xl font-bold ">{data.name}</h4>
-              <div className="mt-10 whitespace-pre-line text-md text-[#aaacae] border-b pb-10 border-[#ccced1]">
-                <p>{data.description}</p>
-                <p className="mt-10 font-bold text-3xl">
-                  £{data.price.toFixed(2)}
-                </p>
+        <div className="mt-4 xl:px-35 md:px-10 px-4">
+          <button
+            onClick={() => router.back()}
+            className="cursor-pointer sm:text-2xl text-lg text-[#aaacae]"
+          >
+            {"< back"}
+          </button>
+          <div className=" mt-25 xl:px-35 md:px-10 px-4">
+            <div className="flex justify-center max-lg:flex-col max-lg:items-center gap-20">
+              <div className="min-w-[500px] max-md:min-w-[350px]">
+                <Image
+                  src={data.image}
+                  width={500}
+                  height={200}
+                  alt={`Image of ${data?.name}`}
+                />
               </div>
-
-              {/* Lower part */}
-
-              <div className="flex mt-10 items-center gap-10 max-sm:flex-col">
-                <div className="flex text-black dark:text-white items-center gap-2 max-sm:w-full">
-                  <button
-                    className="bg-[#aaacae] px-5 py-3 cursor-pointer hover:bg-[#7c7d7f]"
-                    onClick={(e) => handleCounter("minus")}
-                  >
-                    -
-                  </button>
-                  <span className="flex-1 px-10 text-center w-4">
-                    {quantity}
-                  </span>
-                  <button
-                    className="bg-[#aaacae] px-5 py-3 cursor-pointer hover:bg-[#7c7d7f] "
-                    onClick={(e) => handleCounter("add")}
-                  >
-                    +
-                  </button>
+              <div className="max-w-[600px] max-md:w-full text-[#aaacae]">
+                <h4 className="text-2xl font-bold ">{data.name}</h4>
+                <div className="mt-10 whitespace-pre-line text-md text-[#aaacae] border-b pb-10 border-[#ccced1]">
+                  <p>{data.description}</p>
+                  <p className="mt-10 font-bold text-3xl">
+                    £{data.price.toFixed(2)}
+                  </p>
                 </div>
-                <div className="max-sm:w-full" onClick={handleAddToCart}>
-                  <button className="px-10 py-3 bg-[#fc9e2c] text-white hover:bg-[#ff8c00] transition-colors duration-200 cursor-pointer whitespace-nowrap max-sm:w-full ">
-                    ADD TO CART
-                  </button>
+
+                {/* Lower part */}
+
+                <div className="flex mt-10 items-center gap-10 max-sm:flex-col">
+                  <div className="flex text-black dark:text-white items-center gap-2 max-sm:w-full">
+                    <button
+                      className="bg-[#aaacae] px-5 py-3 cursor-pointer hover:bg-[#7c7d7f]"
+                      onClick={(e) => handleCounter("minus")}
+                    >
+                      -
+                    </button>
+                    <span className="flex-1 px-10 text-center w-4">
+                      {quantity}
+                    </span>
+                    <button
+                      className="bg-[#aaacae] px-5 py-3 cursor-pointer hover:bg-[#7c7d7f] "
+                      onClick={(e) => handleCounter("add")}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <div className="max-sm:w-full" onClick={handleAddToCart}>
+                    <button className="px-10 py-3 bg-[#fc9e2c] text-white hover:bg-[#ff8c00] transition-colors duration-200 cursor-pointer whitespace-nowrap max-sm:w-full ">
+                      ADD TO CART
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="mt-26">
-            <RecommendSlider title="Products you might find interesting" />
+            <div className="mt-26">
+              <RecommendSlider title="Products you might find interesting" />
+            </div>
           </div>
         </div>
       )}

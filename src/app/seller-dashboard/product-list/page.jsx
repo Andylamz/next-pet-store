@@ -39,21 +39,24 @@ function page() {
       <div className="flex flex-col gap-2 w-full max-h-[800px] max-w-[1100px] overflow-y-auto mt-8 hide-scrollbar">
         {isLoaded &&
           data.length > 0 &&
-          data.map((product) => (
-            <ProductCom
-              key={product._id}
-              category={product.category}
-              sellerMongoId={product.sellerMongoId}
-              name={product.name}
-              image={product.image}
-              price={product.price}
-              productId={product._id}
-              fetchProductData={fetchProductData}
-            />
-          ))}
+          data
+            .slice()
+            .reverse()
+            .map((product) => (
+              <ProductCom
+                key={product._id}
+                category={product.category}
+                sellerMongoId={product.sellerMongoId}
+                name={product.name}
+                image={product.image}
+                price={product.price}
+                productId={product._id}
+                fetchProductData={fetchProductData}
+              />
+            ))}
       </div>
       {isLoaded && !data.length && (
-        <div className="flex min-h-[60%] justify-center items-center text-center text-2xl">
+        <div className="flex mt-50 min-h-[60%] justify-center items-center text-center text-2xl">
           <p>No Products</p>
         </div>
       )}

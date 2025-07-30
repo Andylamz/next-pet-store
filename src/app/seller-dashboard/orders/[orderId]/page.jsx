@@ -15,6 +15,7 @@ function page({ params }) {
   const { orderId } = use(params);
   const filteredOrder = data?.filter((order) => order._id === orderId);
   const currentOrder = filteredOrder ? filteredOrder[0] : [];
+  console.log(currentOrder);
   console.log("currentOrder:", currentOrder);
 
   const totalUIPrice = currentOrder?.products?.reduce((acc, item) => {
@@ -91,15 +92,9 @@ function page({ params }) {
               <div className="px-3 py-6">
                 <div className="flex flex-col gap-4 px-2">
                   {currentOrder &&
-                    currentOrder?.products
-                      ?.slice()
-                      .reverse()
-                      .map((product) => (
-                        <OrderProductDetail
-                          key={product._id}
-                          product={product}
-                        />
-                      ))}
+                    currentOrder?.products.map((product) => (
+                      <OrderProductDetail key={product._id} product={product} />
+                    ))}
                 </div>
               </div>
               <div className="flex items-center mt-6 px-4 py-6 border-t border-[#aaacae] text-[#aaacae] max-h-[75px] ">
