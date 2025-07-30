@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Andy Pet Store (Full stack E-commerce App)
 
-## Getting Started
+A full-stack pet store application built with Next.js 15, allowing users to broswe products, create accounts, and mange orders. Includes a selller dashboard, image uploads and access control. I built this project to practice real-world full stack development and authentication workflows.
 
-First, run the development server:
+## Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  - Framework: Next.js 15 (App Router
+  - Styling, Tailwind CSS, FontAersome, Swiper, DarkMode (Next Themes)
+  - Auth: Clerk (Dev mode)
+  - Database: MongoDB Atlas
+  - image Upload: Cloudinary
+  - Deploy: Vercel
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+  - User authentication with Clerk
+  - Automatic user sync to MongoDB via webhook
+  - Users start as buyers and can upgrade to seller with one click
+  - Role-based access, seller dashboard is protected
+  - Product CRUD for sellers (with Cloudinary image support)
+  - Buyers can browse, add to card, and place order
+  - Sellers only see orders that belong to othem
+  - Product search with keywork filter (server-side)
+  - Swiper carousel for homepage and product suggestions
+  - Smooth UI with loading states, hover effects and responsive deign
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Auth Note
 
-## Learn More
+Clerk is used in Development Mode, no real user data is stored. This is a personal project.
 
-To learn more about Next.js, take a look at the following resources:
+## Screenshots
+<img width="1893" height="910" alt="Home" src="https://github.com/user-attachments/assets/008522fa-c8e6-41ce-9ef1-3356af7b859a" />
+<img width="1893" height="910" alt="recommend" src="https://github.com/user-attachments/assets/b39ed8e5-93a8-4106-8998-43a4f5a9e25b" />
+<img width="1893" height="904" alt="cart" src="https://github.com/user-attachments/assets/9c72dbe9-d7f5-4beb-869a-df00e16a55af" />
+<img width="1893" height="904" alt="order" src="https://github.com/user-attachments/assets/6416b8a3-2985-4571-b66a-b366b5c634f8" />
+<img width="1893" height="911" alt="sellerdashboard" src="https://github.com/user-attachments/assets/75e0f52c-d976-4bf4-92d3-bd098f1bfb1d" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## LinkedIn
+[Connect on LinkedIn](https://www.linkedin.com/in/yan-ting-lam-3a040b361/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Live Demo
+Click [here](https://next-pet-store.vercel.app/) to view demo
