@@ -82,6 +82,10 @@ function page() {
       >
         {/* Personal Info */}
         <div className="flex flex-col gap-2">
+          <p className="text-[#aaacae] text-xs border border-[#aaacae] text-center mb-4 py-1 px-2">
+            Note: This is a personal project, please do not enter any sensitive
+            or personal information
+          </p>
           <h3 className="text-2xl font-medium max-sm:text-xl mb-4">
             <span className="text-[#aaacae]">Shipping </span>
             <span className="text-[#fc5d0f]">Address</span>
