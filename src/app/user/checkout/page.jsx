@@ -49,12 +49,11 @@ function page() {
           orderId,
         },
       });
-      console.log(res.data.data.cartId);
       if (res?.data?.success) {
         setCartId(res.data.data.cartId);
       }
     } catch {
-      console.log(res.data.data);
+      return null;
     }
   }
 
@@ -64,10 +63,10 @@ function page() {
         data: { cartId },
       });
       if (res.data.success) {
-        console.log(res);
+        console.log("success");
       }
     } catch {
-      console.log(res);
+      return null;
     }
   }
   useEffect(() => {

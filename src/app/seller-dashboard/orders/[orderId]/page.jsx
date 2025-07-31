@@ -15,8 +15,6 @@ function page({ params }) {
   const { orderId } = use(params);
   const filteredOrder = data?.filter((order) => order._id === orderId);
   const currentOrder = filteredOrder ? filteredOrder[0] : [];
-  console.log(currentOrder);
-  console.log("currentOrder:", currentOrder);
 
   const totalUIPrice = currentOrder?.products?.reduce((acc, item) => {
     return acc + item.quantity * item.price;
@@ -33,7 +31,6 @@ function page({ params }) {
 
   async function handleSubmitTracking(e) {
     e.preventDefault();
-    console.log(tracking);
     try {
       const res = await axios.patch("/api/seller/getOrders", {
         orderId,
@@ -48,12 +45,11 @@ function page({ params }) {
         getOrderData();
       }
     } catch {
-      console.log("error");
+      return null;
     }
   }
 
   async function getOrderData() {
-    console.log("fetched");
     setIsLoading(true);
     try {
       const res = await axios.get("/api/seller/getOrders", {
@@ -63,11 +59,10 @@ function page({ params }) {
       });
 
       if (res.data.success) {
-        console.log(res.data.data);
         setData(res.data.data);
       }
     } catch (err) {
-      console.log(err);
+      return null;
     } finally {
       setIsLoading(false);
     }

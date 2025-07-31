@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   await connectDB();
   const sellerMongoId = req.nextUrl.searchParams.get("sellerMongoId");
-  console.log(sellerMongoId);
   try {
     const res = await OrderModel.find({
       "products.sellerMongoId": sellerMongoId,
@@ -30,8 +29,6 @@ export async function PATCH(req) {
   const body = await req.json();
   const { tracking, orderId, sellerMongoId } = body;
 
-  console.log(tracking, orderId, sellerMongoId);
-
   try {
     const res = await OrderModel.findOneAndUpdate(
       { _id: orderId },
@@ -46,7 +43,6 @@ export async function PATCH(req) {
         arrayFilters: [{ "elem.sellerMongoId": sellerMongoId }],
       }
     );
-    console.log(res);
     return NextResponse.json({ success: true, data: res });
   } catch (err) {
     return NextResponse.json({ success: false, data: err.message });

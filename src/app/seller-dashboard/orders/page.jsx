@@ -23,11 +23,10 @@ function page() {
       });
 
       if (res.data.success) {
-        console.log(res.data.data);
         setData(res.data.data);
       }
     } catch {
-      console.log("Error");
+      return null;
     } finally {
       setIsLoading(false);
     }

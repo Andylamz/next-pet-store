@@ -27,7 +27,6 @@ function Header() {
   const pathName = usePathname();
 
   if (["/sign-in", "/sign-up", "/user/verify"].includes(pathName)) {
-    console.log(pathName);
     return null;
   }
   function handleSearchOpen(boolean) {

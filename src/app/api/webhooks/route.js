@@ -26,8 +26,7 @@ export async function POST(req) {
           image_url,
           email_addresses
         );
-        console.log("eventtype: ", eventType);
-        console.log("user: ", user);
+
         if (user && eventType === "user.created") {
           console.log("start creating and updating");
           try {

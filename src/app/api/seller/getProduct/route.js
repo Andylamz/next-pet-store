@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   const sellerMongoId = req.nextUrl.searchParams.get("sellerMongoId");
   await connectDB();
-  console.log("mongoId", sellerMongoId);
   try {
     const res = await ProductModel.find({ sellerMongoId });
     return NextResponse.json({ success: true, data: res });

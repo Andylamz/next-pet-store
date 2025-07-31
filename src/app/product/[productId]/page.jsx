@@ -71,7 +71,6 @@ function page({ params }) {
   }
 
   useEffect(() => {
-    console.log("effect");
     fetchProductData();
   }, []);
 

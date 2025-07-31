@@ -14,7 +14,6 @@ function RecommendSlider({ title }) {
   async function fetchAllProductsData() {
     const res = await axios.get("/api/getAllProducts");
     if (res.data.success) {
-      console.log(res.data.data);
       return setData(res.data);
     } else {
       return null;

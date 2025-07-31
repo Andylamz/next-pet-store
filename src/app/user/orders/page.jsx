@@ -18,10 +18,8 @@ function page() {
           isDetails: false,
         },
       });
-      console.log(res);
       if (res.data.success) {
         setOrders(res.data.data);
-        console.log(res.data);
       }
     } catch (err) {}
   }

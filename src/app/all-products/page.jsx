@@ -13,7 +13,6 @@ function page() {
     try {
       const res = await axios.get("/api/getAllProducts");
       if (res.data.success) {
-        console.log(res.data);
         setData(res.data.data);
         setIsLoading(false);
       }

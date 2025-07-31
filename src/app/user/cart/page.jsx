@@ -58,7 +58,6 @@ function page() {
   async function handlePlaceOrder(e) {
     setIsLoading(true);
     e.preventDefault();
-    console.log(cartId);
 
     const order = {
       buyerMongoId,
@@ -84,7 +83,7 @@ function page() {
     } else {
       setIsLoading(false);
 
-      return console.log(res.data.data);
+      return null;
     }
   }
 

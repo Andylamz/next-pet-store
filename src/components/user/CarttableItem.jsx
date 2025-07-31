@@ -88,7 +88,6 @@ function CarttableItem({
       quantity: enteredQuantity,
       isUpdate: true,
     });
-    console.log(res);
 
     if (res.data.success) {
       console.log("succeed");

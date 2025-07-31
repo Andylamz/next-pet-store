@@ -11,14 +11,12 @@ function page({ params }) {
   const getParams = useParams();
   const rawKeyword = getParams.keyword;
   const keyword = decodeURIComponent(rawKeyword).toLowerCase();
-  console.log("kw", keyword);
 
   async function fetchfilteredData() {
     setIsLoading(true);
     try {
       const res = await axios.get("/api/getAllProducts");
       if (res.data.success) {
-        console.log(res.data.data);
         const data = res.data.data.filter((item) => {
           return (
             item.name.toLowerCase().includes(keyword) ||

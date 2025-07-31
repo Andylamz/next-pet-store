@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 function OrderProductDetails({ product }) {
-  console.log("pro", product);
   const totalPrice = (product.price * product.quantity).toFixed(2);
   return (
     <div className=" flex max-sm:text-sm">

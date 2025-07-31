@@ -13,7 +13,6 @@ function page() {
   const user = useUser();
   const { isLoaded } = useUser();
   const sellerMongoId = user?.user?.publicMetadata?.mongoId;
-  // console.log(user);
   async function fetchProductData() {
     const res = await axios.get("/api/seller/getProduct", {
       params: {
@@ -23,7 +22,6 @@ function page() {
 
     if (res.data.success) {
       setData(res.data.data);
-      console.log(res.data);
     }
   }
   useEffect(() => {

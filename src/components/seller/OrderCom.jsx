@@ -17,7 +17,6 @@ function OrderCom({ data }) {
   if (data.status === "pending") {
     return null;
   }
-  console.log(data);
   return (
     <Link
       href={`/seller-dashboard/orders/${id}`}

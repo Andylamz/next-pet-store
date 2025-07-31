@@ -33,7 +33,6 @@ function page({ params }) {
     });
     if (res.data.success) {
       setOrder(res.data.data);
-      console.log(res.data);
     }
     setIsLoading(false);
   }

@@ -67,7 +67,6 @@ export async function GET(req) {
     const res = await CartModel.findOne({ buyerMongoId }).populate(
       "items.productId"
     );
-    console.log(buyerMongoId);
     return NextResponse.json({ success: true, data: res });
   } catch (err) {
     return NextResponse.json({ success: false, data: err.message });

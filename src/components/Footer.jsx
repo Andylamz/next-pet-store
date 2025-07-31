@@ -22,7 +22,6 @@ function Footer() {
     return null;
   }
   // path = '/' or '/user' or '/sell-dashboard'
-  console.log(path);
 
   return (
     <div className="mt-25 ">
