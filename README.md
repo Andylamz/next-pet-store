@@ -24,6 +24,15 @@ A full-stack pet store application built with Next.js 15, allowing users to bros
 - Swiper carousel for homepage and product suggestions
 - Smooth UI with loading states, hover effects and responsive deign
 
+## Countinuous Integtation (CI)
+
+This project uses **Github Actions** to automatically verify that the app can be built successfully on every push to the main branch.
+
+The CI workflow performs the following:
+  - Installs dependencies
+  - Builds the Next.js project using 'npm run build'
+This ensures that all commits keep the code in a production-ready state.
+
 ## Auth Note
 
 Clerk is used in Development Mode, no real user data is stored. This is a personal project.
